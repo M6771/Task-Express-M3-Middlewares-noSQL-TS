@@ -18,5 +18,8 @@
     "mongoose": "^8.15.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
