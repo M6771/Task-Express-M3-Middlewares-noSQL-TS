@@ -1,11 +1,20 @@
 import express from "express";
-import { createPost, deletePost, getPosts, updatePost } from "./posts.controller";
+import { createPost, getPosts, updatePost, deletePost } from "./posts.controller";
+import { upload } from "../../middlewares/multer.middleware";
+import { validatePost, handleValidationErrors } from "../../middlewares/postValidation.middleware";
 
-const router = express.Router();
+const postRouter = express.Router();
 
-router.get("/", getPosts);
-router.post("/", createPost);
-router.put("/:id", updatePost);
-router.delete("/:id", deletePost);
+// Create a new post with optional image upload
+// Order: multer first (parses form-data), then validation, then controller
+postRouter.post("/", upload.single("image"), ...validatePost, handleValidationErrors, createPost);
 
-export default router;
+// Get all posts (no changes needed)
+postRouter.get("/", getPosts);
+
+// Update a post
+postRouter.put("/:id", updatePost);
+// Delete a post
+postRouter.delete("/:id", deletePost);
+
+export default postRouter;

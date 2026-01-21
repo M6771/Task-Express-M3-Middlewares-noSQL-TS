@@ -15,6 +15,9 @@ const PostSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Tag"
     }],
+    image: {           // Add this field
+        type: String     // Stores the image path
+    },
 });
 
 const Post = model("Post", PostSchema);
